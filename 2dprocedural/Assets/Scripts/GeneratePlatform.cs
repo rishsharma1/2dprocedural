@@ -7,12 +7,17 @@ public class GeneratePlatform : MonoBehaviour {
 
 	public GameObject platform;
 	public Transform generationPoint;
+	public ObjectPooler objectPool;
 
-	public float distanceApartMax;
-	public float distanceApartMin;
+	public float distanceApartMaxH;
+	public float distanceApartMinH;
+
+	public float distanceApartMaxV;
+	public float distanceApartMinV;
 
 
 	private float platformWidth;
+
 
 
 	void Start() {
@@ -25,12 +30,17 @@ public class GeneratePlatform : MonoBehaviour {
 		// if true create some new platforms
 		if(transform.position.x < generationPoint.position.x) {
 
-			float distanceApart = Random.Range(distanceApartMin,distanceApartMax);
+			float distanceApartH = Random.Range(distanceApartMinH,distanceApartMaxH);
+			float distanceApartV = Random.Range(distanceApartMinV,distanceApartMaxV);
 
-			transform.position = new Vector3(transform.position.x+platformWidth+distanceApart,
-											 transform.position.y,transform.position.z);
-			Instantiate(platform,transform.position,transform.rotation);
-		}
+			transform.position = new Vector3(transform.position.x+platformWidth+distanceApartH,
+											 distanceApartV,transform.position.z);
+
+			GameObject platform = objectPool.getPooledObject();
+			platform.transform.position = transform.position;
+			platform.transform.rotation = transform.rotation;
+			platform.SetActive(true);
+		}																					
 
 	}
 }
