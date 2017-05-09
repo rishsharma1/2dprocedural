@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
 		animator = this.GetComponent<Animator> ();
 	}
 	
-	void FixedUpdate () {
+	void Update () {
 
 		float horizontal = Input.GetAxis ("Horizontal");
 		isJump = Input.GetKeyDown ("space");
@@ -49,8 +49,8 @@ public class Player : MonoBehaviour {
 		}
 
 		if (isGrounded) {
-			rigidBody.velocity = new Vector2 (horizontal * speed, rigidBody.velocity.y);
-			animator.SetFloat ("speed", Mathf.Abs(horizontal));
+			rigidBody.velocity = new Vector2 (speed, rigidBody.velocity.y);
+			animator.SetFloat ("speed", speed);
 
 		}
 
